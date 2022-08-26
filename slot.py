@@ -1,11 +1,17 @@
+from teacher import Teacher
+
+
 class Slot:
 
     def __init__(self, preferences) -> None:
-        self.preferences = preferences
-        self.available = True
-        self.teacher = False
+        self.preferences : list[str] = preferences
+        self.available : bool = True
+        self.teacher : Teacher = False
+
+    def get_teacher(self) -> Teacher:
+        return self.teacher
     
-    def set_available(self, value):
+    def set_available(self, value) -> None:
         """ Set value of available
 
         Args:
@@ -13,7 +19,7 @@ class Slot:
         """
         self.available = value
     
-    def assign(self, teacher):
+    def assign(self, teacher) -> None:
         """ Assign a teacher to the slot
 
         Args:

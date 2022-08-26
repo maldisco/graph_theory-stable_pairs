@@ -1,13 +1,11 @@
 from school import School
 from teacher import Teacher
-from assignment import Assignment
-import time
 
 class Solution:
 
     def __init__(self, school_list, teacher_list) -> None:
-        self.schools = school_list
-        self.teachers = teacher_list
+        self.schools : list[School] = school_list
+        self.teachers : list[Teacher] = teacher_list
     
     def spa(self):
         """ Empair teachers and schools by teachers preference
@@ -56,7 +54,7 @@ class Solution:
 
         return stable_pairs
 
-    def _next_free_teacher(self):
+    def _next_free_teacher(self) -> Teacher:
         """ Find a teacher that is both free and has a non-empty preference list
 
         Returns:
@@ -68,7 +66,7 @@ class Solution:
         
         return False
     
-    def _get_school(self, id):
+    def _get_school(self, id) -> School:
         """ Get School objet from school id
 
         Args:

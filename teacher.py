@@ -1,14 +1,16 @@
 from operator import truediv
 
+from school import School
+
 
 class Teacher:
 
     def __init__(self, id, preferences, qualification) -> None:
-        self.id = id
-        self.preferences = preferences
-        self.qualification = qualification
-        self.free = True
-        self.school = False
+        self.id : str = id
+        self.preferences : list[str] = preferences
+        self.qualification : int = qualification
+        self.free : bool = True
+        self.school : School = False
 
     def is_free(self):
         """ Check if teacher already has a school

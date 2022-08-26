@@ -4,11 +4,11 @@ from school import School
 class Input:
 
     def __init__(self) -> None:
-        self.teacher_list = []
-        self.school_list = []
+        self.teacher_list : list[Teacher] = []
+        self.school_list : list[School] = []
 
     def gather(self):
-        """ Gathe input from files and update school list and teacher list
+        """ Gather input from files and update school list and teacher list
         """
         with open("professores.txt", 'r') as file:
             for line in file.read().split('\n'):

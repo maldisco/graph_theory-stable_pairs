@@ -1,11 +1,12 @@
+from typing import Tuple
 from teacher import Teacher
 from slot import Slot
 
 class School:
 
     def __init__(self, id) -> None:
-        self.id = id
-        self.slots = []
+        self.id : str = id
+        self.slots : list[Slot] = []
 
     def add_offer(self, preferences):
         """ Add one slot for school
@@ -14,7 +15,7 @@ class School:
         """  
         self.slots.append(Slot(preferences))
     
-    def get_slots(self):
+    def get_slots(self) -> list[Slot]:
         """ Get the list of slots
 
         Returns:
@@ -22,7 +23,7 @@ class School:
         """
         return self.slots
     
-    def _choose_slot(self, teacher):
+    def _choose_slot(self, teacher) -> Slot:
         """ Pick one slot according to teacher. If teacher is in slot preferences.
 
         Args:
@@ -41,7 +42,7 @@ class School:
         
         return False
 
-    def _pick_worst_between(self, teacher1, teacher2, preferences):
+    def _pick_worst_between(self, teacher1, teacher2, preferences) -> Teacher:
         """ Pick the worst teacher between two options. Based on rank in preference list
 
         Args:
@@ -61,7 +62,7 @@ class School:
         
         return teacher2 if rank_teacher1 < rank_teacher2 else teacher1
 
-    def assign(self, teacher):
+    def assign(self, teacher: Teacher) -> None:
         """ Assign a teacher to school.
 
         Args:
@@ -83,15 +84,15 @@ class School:
         else:
             teacher.delete_pref(self.id)
 
-    def full(self):
+    def full(self) -> bool:
         """ Check if school is full
 
         Returns:
             bool: True if is full
         """
-        return all([not slot.available for slot in self.slots])
+        return all([not slot.available for slot in self.get_slots()])
     
-    def get_invalid_pairs(self):
+    def get_invalid_pairs(self) -> list[tuple]:
         """ Get pairs of techers and school that will never be paired.\n
         A teacher and a school cant be paired if there's a better teacher allocated in that school
 
@@ -100,7 +101,7 @@ class School:
         """
         invalid_pairs = []
 
-        for slot in self.slots:
+        for slot in self.get_slots():
 
             index = 0
             for i in  range(len(slot.preferences)):
