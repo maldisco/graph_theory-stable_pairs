@@ -1,4 +1,3 @@
-from typing import Tuple
 from teacher import Teacher
 from slot import Slot
 

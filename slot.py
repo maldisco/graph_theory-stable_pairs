@@ -1,6 +1,5 @@
 from teacher import Teacher
 
-
 class Slot:
 
     def __init__(self, preferences) -> None:

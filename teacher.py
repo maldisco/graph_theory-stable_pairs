@@ -1,8 +1,3 @@
-from operator import truediv
-
-from school import School
-
-
 class Teacher:
 
     def __init__(self, id, preferences, qualification) -> None:
@@ -10,7 +5,7 @@ class Teacher:
         self.preferences : list[str] = preferences
         self.qualification : int = qualification
         self.free : bool = True
-        self.school : School = False
+        self.school = False
 
     def is_free(self):
         """ Check if teacher already has a school
@@ -24,7 +19,7 @@ class Teacher:
         """ Check if teacher have at least 1 preference on preference list
 
         Returns:
-            bool: has at least 1 preference
+            bool: True if has at least 1 preference
         """
         return True if self.preferences else False
     

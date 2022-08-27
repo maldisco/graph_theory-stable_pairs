@@ -26,7 +26,7 @@ class Input:
                 
                 for pref in map(int, data):
                     pref_list = []
-                    for teacher in sorted(self.teacher_list, key=self._preference_sort, reverse=True):
+                    for teacher in sorted(self.teacher_list, key=self._preference_sort):
                         if teacher.qualification >= pref and teacher.wants(school.id):
                             pref_list.append(teacher.id)
                     
