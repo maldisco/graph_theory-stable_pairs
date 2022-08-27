@@ -7,12 +7,12 @@ class School:
         self.id : str = id
         self.slots : list[Slot] = []
 
-    def add_offer(self, preferences):
+    def add_offer(self, preferences, req_qualification):
         """ Add one slot for school
         Args:
             preferences (list): List of teachers prefered
         """  
-        self.slots.append(Slot(preferences))
+        self.slots.append(Slot(preferences, req_qualification))
     
     def get_slots(self) -> list[Slot]:
         """ Get the list of slots
@@ -31,6 +31,8 @@ class School:
         Returns:
             Slot: slot object
         """
+
+        
         for slot in self.slots:
             if slot.available and teacher.id in slot.preferences:
                 return slot
@@ -69,46 +71,7 @@ class School:
         """
         slot = self._choose_slot(teacher)
         if slot:
-            if slot.available:
-                slot.assign(teacher)
-                teacher.assign(self)
-            else:
-                worst_teacher = self._pick_worst_between(teacher.id, slot.teacher.id, slot.preferences)
-                if worst_teacher == slot.teacher.id:
-                    slot.assign(teacher)
-                    teacher.assign(self)
-                else:
-                    teacher.delete_pref(self.id)
-                    slot.preferences.remove(teacher.id)      
+            slot.assign(teacher)
+            teacher.assign(self)    
         else:
             teacher.delete_pref(self.id)
-
-    def full(self) -> bool:
-        """ Check if school is full
-
-        Returns:
-            bool: True if is full
-        """
-        return all([not slot.available for slot in self.get_slots()])
-    
-    def get_invalid_pairs(self) -> list[tuple]:
-        """ Get pairs of techers and school that will never be paired.\n
-        A teacher and a school cant be paired if there's a better teacher allocated in that school
-
-        Returns:
-            list: list of tuples (teacher id, school id)
-        """
-        invalid_pairs = []
-
-        for slot in self.get_slots():
-
-            index = 0
-            for i in  range(len(slot.preferences)):
-                if slot.preferences[i] == slot.teacher.id:
-                    index = i
-
-            invalid_pairs.extend([(teacher_id, self.id) for teacher_id in slot.preferences[index+1:]])
-            slot.preferences = slot.preferences[:index+1]
-        
-
-        return invalid_pairs

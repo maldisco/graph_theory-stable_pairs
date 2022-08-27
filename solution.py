@@ -1,5 +1,6 @@
 from school import School
 from teacher import Teacher
+import time
 
 class Solution:
 
@@ -24,15 +25,23 @@ class Solution:
             school = self._get_school(pref)
             school.assign(next)
 
-            if(school.full()):
-                invalid_pairs = school.get_invalid_pairs()
-                for teacher_id, school_id in invalid_pairs:
-                    for teacher in self.teachers:
-                        if teacher.id == teacher_id:
-                            teacher.delete_pref(school_id)
+            for slot in school.get_slots():
+                if not slot.available:
+
+                    for teacher in self._get_invalid_teachers(slot.get_preferences(), slot.required_qualification, slot.teacher.qualification):
+
+                        slot.remove_pref(teacher.id)
 
             next = self._next_free_teacher()
 
+    def pre_print(self) -> None:
+        """test
+        """
+
+        for school in self.schools:
+            for slot in school.get_slots():
+
+                print(f"School {school.id} prefers {slot.preferences}")
 
     def __str__(self) -> str:
         stable_pairs = "---- Teachers allocation ----\n"
@@ -53,6 +62,12 @@ class Solution:
             stable_pairs += school_slots
 
         return stable_pairs
+    
+    def _get_invalid_teachers(self, id_list, req_qualification, current_qualification) -> list[Teacher]:
+        if req_qualification == current_qualification:
+            return [teacher for teacher in self.teachers if teacher.id in id_list]
+        else:
+            return [teacher for teacher in self.teachers if teacher.id in id_list and teacher.qualification != req_qualification]
 
     def _next_free_teacher(self) -> Teacher:
         """ Find a teacher that is both free and has a non-empty preference list
