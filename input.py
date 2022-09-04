@@ -2,6 +2,10 @@ from teacher import Teacher
 from school import School
 
 class Input:
+    """ Class for handling with specific files 'professores.txt' and 'escolas.txt'.
+    
+    Read, generate and store a list for each file.
+    """
 
     def __init__(self) -> None:
         self.teacher_list : list[Teacher] = []
@@ -25,12 +29,7 @@ class Input:
                 school = School(data.pop(0))
                 
                 for pref in map(int, data):
-                    pref_list = [teacher.id for teacher in self.teacher_list if teacher.qualification == pref and teacher.wants(school.id)]
-                    
-                    for teacher in sorted(self.teacher_list, key=self._preference_sort, reverse=True):
-                        if teacher.qualification != pref and teacher.wants(school.id):
-                            pref_list.append(teacher.id)
-                    
+                    pref_list = [teacher.id for teacher in sorted(self.teacher_list, key=self._preference_sort) if teacher.qualification >= pref and teacher.wants(school.id)]                    
                     school.add_offer(pref_list, pref)
                 
                 self.school_list.append(school)

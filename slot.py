@@ -1,6 +1,10 @@
 from teacher import Teacher
 
 class Slot:
+    """ Represents a slot on a school.
+
+    Each school can have 1 or 2 slots.
+    """
 
     def __init__(self, preferences : list[str], req_qualification : int) -> None:
         self.preferences : list[str] = preferences
@@ -13,7 +17,7 @@ class Slot:
 
     def get_preferences(self) -> list[str]:
         return self.preferences
-    
+
     def set_available(self, value) -> None:
         """ Set value of available
 
@@ -30,6 +34,7 @@ class Slot:
         """
 
         if(self.teacher):
+            self.preferences.remove(self.teacher.id)
             self.teacher.unassign()
 
         self.teacher = teacher

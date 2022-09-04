@@ -1,4 +1,6 @@
 class Teacher:
+    """ Represents a teacher that will be paired with a school (subsequently a slot).
+    """
 
     def __init__(self, id, preferences, qualification) -> None:
         self.id : str = id
