@@ -62,7 +62,7 @@ class Solution:
         with open("results.txt", "w") as file:
             file.write(stable_pairs)
 
-        stable_pairs = f"Foi possível alocar {stable_teachers} professores estavelmente.\nPara mais detalhes, foi gerado um arquivo 'results.txt' com cada pareamento."
+        stable_pairs = f"Foi possível alocar {stable_teachers} professores estavelmente.\nPara mais detalhes, foi gerado um arquivo 'results.txt' com cada emparelhamento."
 
         return stable_pairs
 
